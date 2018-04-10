@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eliteams.mydoc.web.doc.dao.InterfaceResponseFieldMapper">
+    <insert id="addInterfaceResponseField"  useGeneratedKeys="true" keyProperty="interfaceResponseFieldId">
+        INSERT INTO interface_response_field
+        (
+        field_name,
+        field_type,
+        field_remark,
+        interface_info_id,
+        field_must
+        )
+        VALUES
+        (
+        #{fieldName},
+        #{fieldType},
+        #{fieldRemark},
+        #{interfaceInfoId},
+        #{fieldMust}
+        )
+    </insert>
+
+    <delete id="delInterfaceResponseField" parameterType="long">
+        DELETE FROM interface_response_field WHERE interface_info_id = #{interfaceInfoId}
+    </delete>
+
+    <delete id="delResponseField" parameterType="long">
+        DELETE FROM interface_response_field WHERE interface_response_field_id = #{interfaceResponseFieldId}
+    </delete>
+
+    <update id="updateResponseField">
+        UPDATE interface_response_field
+        <set>
+            <if test="interfaceResponseField.fieldName != null">
+                field_name = #{interfaceResponseField.fieldName}
+            </if>
+            <if test="interfaceResponseField.fieldType != null">
+                field_type = #{interfaceResponseField.fieldType}
+            </if>
+            <if test="interfaceResponseField.fieldRemark != null">
+                field_remark = #{interfaceResponseField.fieldRemark}
+            </if>
+            <if test="interfaceResponseField.fieldMust != null">
+                field_must = #{interfaceResponseField.fieldMust}
+            </if>
+        </set>
+        <where>
+            interface_response_field_id = #{interfaceResponseField.interfaceResponseFieldId}
+        </where>
+    </update>
+
+    <select id="queryResponseByInterfaceId" parameterType="long" resultType="com.eliteams.mydoc.web.doc.model.InterfaceResponseField">
+        SELECT * FROM interface_response_field WHERE interface_info_id = #{interfaceId}
+    </select>
+</mapper>

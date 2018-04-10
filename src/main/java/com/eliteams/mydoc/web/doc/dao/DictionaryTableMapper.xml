@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eliteams.mydoc.web.doc.dao.DictionaryTableMapper">
+
+    <insert id="addDictionaryTable">
+        INSERT INTO dictionary_table
+        (
+        dictionary_table_code,
+        dictionary_table_message,
+        dictionary_table_platform,
+        dictionary_table_rank
+        )
+        VALUES
+        (
+        #{dictionaryTable.dictionaryTableCode},
+        #{dictionaryTable.dictionaryTableMessage},
+        #{dictionaryTable.dictionaryTablePlatform},
+        #{dictionaryTable.dictionaryTableRank}
+        )
+    </insert>
+
+    <delete id="delDictionaryTable">
+        DELETE FROM dictionary_table WHERE dictionary_table_id = #{dictionaryTableId}
+    </delete>
+
+    <select id="queryDictionaryTable" parameterType="long" resultType="com.eliteams.mydoc.web.doc.model.DictionaryTable">
+        SELECT * FROM dictionary_table
+        <where>
+            <if test="dictionaryTable.dictionaryTableCode != 0">
+                dictionary_table_code = #{dictionaryTable.dictionaryTableCode}
+            </if>
+            <if test="dictionaryTable.dictionaryTableMessage != null">
+                AND dictionary_table_message LIKE "%"#{dictionaryTable.dictionaryTableMessage}"%"
+            </if>
+            <if test="dictionaryTable.dictionaryTablePlatform != 0">
+                AND dictionary_table_platform = #{dictionaryTable.dictionaryTablePlatform}
+            </if>
+            <if test="dictionaryTable.dictionaryTableRank != 0">
+                AND dictionary_table_rank = #{dictionaryTable.dictionaryTableRank}
+            </if>
+        </where>
+        ORDER BY dictionary_table_rank DESC
+    </select>
+
+    <!-- 修改字典表-->
+    <update id="updateDictionaryTable">
+        UPDATE dictionary_table
+        <set>
+            <if test="dictionaryTable.dictionaryTableMessage != null">
+                dictionary_table_message = #{dictionaryTable.dictionaryTableMessage},
+            </if>
+            <if test="dictionaryTable.dictionaryTablePlatform != 0">
+                dictionary_table_platform = #{dictionaryTable.dictionaryTablePlatform},
+            </if>
+            <if test="dictionaryTable.dictionaryTableRank != 0">
+                dictionary_table_rank = #{dictionaryTable.dictionaryTableRank},
+            </if>
+            dictionary_table_code = #{dictionaryTable.dictionaryTableCode},
+        </set>
+        <where>
+            dictionary_table_id = #{dictionaryTable.dictionaryTableId}
+        </where>
+    </update>
+
+    <select id="queryDictionaryTableId" parameterType="long" resultType="com.eliteams.mydoc.web.doc.model.DictionaryTable">
+        SELECT * FROM dictionary_table WHERE dictionary_table_id = #{dictionaryTableId}
+    </select>
+</mapper>

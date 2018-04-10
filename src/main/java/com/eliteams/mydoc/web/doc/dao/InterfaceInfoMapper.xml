@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eliteams.mydoc.web.doc.dao.InterfaceInfoMapper">
+    <insert id="addInterfaceInfo"  useGeneratedKeys="true" keyProperty="interfaceInfoId">
+        INSERT INTO interface_info
+        (
+        interface_name,
+        method_name,
+        method_purpose,
+        method_route,
+        method_request_demo,
+        method_result_demo,
+        interface_request_mode,
+        interface_response_mode,
+        interface_create_user_id,
+        interface_create_user_name,
+        platform_doc_id,
+        platform_doc_module_classify_id,
+        interface_status,
+        interface_create_time,
+        department_id,
+        global_classify_id
+        )
+        VALUES
+        (
+        #{interfaceName},
+        #{methodName},
+        #{methodPurpose},
+        #{methodRoute},
+        #{methodRequestDemo},
+        #{methodResultDemo},
+        #{interfaceRequestMode},
+        #{interfaceResponseMode},
+        #{interfaceCreateUserId},
+        #{interfaceCreateUserName},
+        #{platformDocId},
+        #{platformDocModuleClassifyId},
+        #{interfaceStatus},
+        #{interfaceCreateTime},
+        #{departmentId},
+        #{globalClassifyId}
+        )
+    </insert>
+
+    <select id="queryInterfaceByDepartmentId" resultType="com.eliteams.mydoc.web.doc.vo.InterfaceViewVO">
+        SELECT i.interface_info_id AS interfaceInfoId, i.interface_name AS interfaceName, i.method_name AS methodName,
+        i.method_purpose AS methodPurpose, i.method_route AS methodRoute, i.method_request_demo AS methodRequestDemo,
+        i.method_result_demo AS methodResultDemo, i.interface_request_mode AS interfaceRequestMode, i.interface_response_mode AS interfaceResponseMode,
+        i.interface_create_user_id AS interfaceCreateUserId, i.interface_create_user_name AS interfaceCreateUserName, p.platform_name AS platformDocName,
+        dc.module_name AS platformDocModuleClassifyName, i.interface_status AS interfaceStatus, i.interface_create_time AS interfaceCreateTime,
+        i.department_id AS departmentId, i.global_classify_id AS globalClassifyId
+        FROM interface_info AS i
+        INNER JOIN platform_doc AS p ON p.platform_doc_id = i.platform_doc_id
+        INNER JOIN platform_doc_module_classify AS dc ON dc.platform_doc_module_classify_id = i.platform_doc_module_classify_id
+        <where>
+            <if test="interfaceInfo.platformDocModuleClassifyId != 0">
+                i.platform_doc_module_classify_id = #{interfaceInfo.platformDocModuleClassifyId}
+            </if>
+            <if test="interfaceInfo.platformDocId != 0">
+                AND i.platform_doc_id = #{interfaceInfo.platformDocId}
+            </if>
+            <if test="interfaceInfo.interfaceStatus != 0">
+                AND i.interface_status = #{interfaceInfo.interfaceStatus}
+            </if>
+            <if test="interfaceInfo.methodName != null">
+                AND i.method_name LIKE "%"#{interfaceInfo.methodName}"%"
+            </if>
+            <if test="interfaceInfo.interfaceName != null">
+                AND i.interface_name LIKE "%"#{interfaceInfo.interfaceName}"%"
+            </if>
+            AND (i.department_id = #{interfaceInfo.departmentId} OR i.department_id = 0)
+        </where>
+        ORDER BY i.interface_create_time DESC
+    </select>
+
+    <select id="queryInterfaceByManager" resultType="com.eliteams.mydoc.web.doc.vo.InterfaceViewVO">
+        SELECT i.interface_info_id AS interfaceInfoId, i.interface_name AS interfaceName, i.method_name AS methodName,
+        i.method_purpose AS methodPurpose, i.method_route AS methodRoute, i.method_request_demo AS methodRequestDemo,
+        i.method_result_demo AS methodResultDemo, i.interface_request_mode AS interfaceRequestMode, i.interface_response_mode AS interfaceResponseMode,
+        i.interface_create_user_id AS interfaceCreateUserId, i.interface_create_user_name AS interfaceCreateUserName, p.platform_name AS platformDocName,
+        dc.module_name AS platformDocModuleClassifyName, i.interface_status AS interfaceStatus, i.interface_create_time AS interfaceCreateTime,
+        i.department_id AS departmentId, i.global_classify_id AS globalClassifyId
+        FROM interface_info AS i
+        INNER JOIN platform_doc AS p ON p.platform_doc_id = i.platform_doc_id
+        INNER JOIN platform_doc_module_classify AS dc ON dc.platform_doc_module_classify_id = i.platform_doc_module_classify_id
+        <where>
+            <if test="interfaceInfo.platformDocModuleClassifyId != 0">
+                i.platform_doc_module_classify_id = #{interfaceInfo.platformDocModuleClassifyId}
+            </if>
+            <if test="interfaceInfo.platformDocId != 0">
+                AND i.platform_doc_id = #{interfaceInfo.platformDocId}
+            </if>
+            <if test="interfaceInfo.interfaceStatus != 0">
+                AND i.interface_status = #{interfaceInfo.interfaceStatus}
+            </if>
+            <if test="interfaceInfo.methodName != null">
+                AND i.method_name LIKE "%"#{interfaceInfo.methodName}"%"
+            </if>
+            <if test="interfaceInfo.interfaceName != null">
+                AND i.interface_name LIKE "%"#{interfaceInfo.interfaceName}"%"
+            </if>
+        </where>
+        ORDER BY i.interface_create_time DESC
+    </select>
+
+    <select id="countInterface" parameterType="long" resultType="int">
+        SELECT IFNULL(COUNT(0), 0) FROM interface_info AS i
+        INNER JOIN platform_doc_module_classify AS dc ON dc.platform_doc_module_classify_id = i.platform_doc_module_classify_id
+        WHERE i.department_id = 0 OR i.department_id = #{departmentId}
+    </select>
+
+    <select id="countInterfaceJava" parameterType="long" resultType="int">
+        SELECT IFNULL(COUNT(0), 0) FROM interface_info
+    </select>
+
+    <select id="queryInterfaceInfoById" parameterType="long" resultType="com.eliteams.mydoc.web.doc.model.InterfaceInfo">
+        SELECT * FROM interface_info WHERE interface_info_id = #{interfaceInfoId}
+    </select>
+
+    <delete id="delInterfaceInfoById" parameterType="long">
+        DELETE FROM interface_info WHERE interface_info_id = #{interfaceInfoId}
+    </delete>
+
+    <!-- 修改接口-->
+    <update id="updateInterfaceInfo">
+        UPDATE interface_info
+        <set>
+            <if test="interfaceInfo.interfaceName != null">
+                interface_name = #{interfaceInfo.interfaceName},
+            </if>
+            <if test="interfaceInfo.methodName != null">
+                method_name = #{interfaceInfo.methodName},
+            </if>
+            <if test="interfaceInfo.methodPurpose != null">
+                method_purpose = #{interfaceInfo.methodPurpose},
+            </if>
+            <if test="interfaceInfo.methodRoute != null">
+                method_route = #{interfaceInfo.methodRoute},
+            </if>
+            <if test="interfaceInfo.methodRequestDemo != null">
+                method_request_demo = #{interfaceInfo.methodRequestDemo},
+            </if>
+            <if test="interfaceInfo.methodResultDemo != null">
+                method_result_demo = #{interfaceInfo.methodResultDemo},
+            </if>
+            <if test="interfaceInfo.interfaceRequestMode != null">
+                interface_request_mode = #{interfaceInfo.interfaceRequestMode},
+            </if>
+            <if test="interfaceInfo.interfaceResponseMode != null">
+                interface_response_mode = #{interfaceInfo.interfaceResponseMode},
+            </if>
+            <if test="interfaceInfo.interfaceCreateUserId != null">
+                interface_create_user_id = #{interfaceInfo.interfaceCreateUserId},
+            </if>
+            <if test="interfaceInfo.interfaceCreateUserName != null">
+                interface_create_user_name = #{interfaceInfo.interfaceCreateUserName},
+            </if>
+            <if test="interfaceInfo.platformDocId != 0">
+                platform_doc_id = #{interfaceInfo.platformDocId},
+            </if>
+            <if test="interfaceInfo.platformDocModuleClassifyId != 0">
+                platform_doc_module_classify_id = #{interfaceInfo.platformDocModuleClassifyId},
+            </if>
+            <if test="interfaceInfo.interfaceStatus != 0">
+                interface_status = #{interfaceInfo.interfaceStatus},
+            </if>
+            <if test="interfaceInfo.interfaceCreateTime != null">
+                interface_create_time = #{interfaceInfo.interfaceCreateTime},
+            </if>
+            <if test="interfaceInfo.globalClassifyId != 0">
+                global_classify_id = #{interfaceInfo.globalClassifyId},
+            </if>
+            department_id = #{interfaceInfo.departmentId}
+        </set>
+        <where>
+            interface_info_id = #{interfaceInfo.interfaceInfoId}
+        </where>
+    </update>
+
+    <select id="countPlatformInterface" parameterType="long" resultType="int">
+        SELECT IFNULL(COUNT(0), 0) FROM interface_info WHERE platform_doc_id = #{platformDocId} AND (department_id = #{department} OR department_id = 0)
+    </select>
+
+    <select id="selectDateType" resultType="com.eliteams.mydoc.web.doc.model.DataType">
+        select  * from data_type
+    </select>
+</mapper>

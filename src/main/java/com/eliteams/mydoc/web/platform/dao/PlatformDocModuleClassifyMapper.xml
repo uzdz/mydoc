@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eliteams.mydoc.web.platform.dao.PlatformDocModuleClassifyMapper">
+    <select id="queryModuleClassify" resultType="com.eliteams.mydoc.web.platform.model.PlatformDocModuleClassify">
+        SELECT * FROM platform_doc_module_classify WHERE platform_doc_id = #{platformId}
+    </select>
+
+    <insert id="addModule">
+        INSERT INTO platform_doc_module_classify
+        (
+          module_name,
+          platform_doc_id
+         )
+        VALUES
+        (
+          #{moduleName},
+          #{platformId}
+         )
+    </insert>
+
+    <delete id="delModule">
+        DELETE FROM platform_doc_module_classify WHERE platform_doc_module_classify_id = #{moduleId}
+    </delete>
+
+    <select id="queryModule" resultType="com.eliteams.mydoc.web.platform.model.PlatformDocModuleClassify">
+        SELECT * FROM platform_doc_module_classify WHERE platform_doc_module_classify_id = #{moduleId}
+    </select>
+</mapper>

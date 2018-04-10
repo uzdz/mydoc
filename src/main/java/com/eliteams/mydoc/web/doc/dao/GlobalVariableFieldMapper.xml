@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eliteams.mydoc.web.doc.dao.GlobalVariableFieldMapper">
+    <insert id="addGlobalVariableField"  useGeneratedKeys="true" keyProperty="globalVariableFieldId">
+        INSERT INTO global_variable_field
+        (
+        global_field_name,
+        global_field_type,
+        global_field_remark,
+        global_field_must,
+        global_classify_id,
+        global_request_result_type
+        )
+        VALUES
+        (
+        #{globalFieldName},
+        #{globalFieldType},
+        #{globalFieldRemark},
+        #{globalFieldMust},
+        #{globalClassifyId},
+        #{globalRequestResultType}
+        )
+    </insert>
+
+    <select id="queryGlobalField" resultType="com.eliteams.mydoc.web.doc.model.GlobalVariableField">
+        SELECT * FROM global_variable_field WHERE global_classify_id = #{globalClassifyId} AND global_request_result_type = #{type}
+    </select>
+
+    <delete id="delGlobalField" parameterType="long">
+        DELETE FROM global_variable_field WHERE global_variable_field_id = #{globalVariableFieldId}
+    </delete>
+</mapper>
