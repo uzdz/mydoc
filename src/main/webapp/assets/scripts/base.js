@@ -1,7 +1,7 @@
 ﻿var MyDoc = (function () {
 
         // IP地址
-        var ip = "http://localhost:8080/mydoc/";
+        var ip = "http://localhost:8081/";
 
         // 路径
         var baseUrl = ip+"rest";
