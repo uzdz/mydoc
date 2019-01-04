@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.24 (32 bit)
 MySQL - 5.6.28-cdb2016-log : Database - mydoc
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -32,7 +33,16 @@ CREATE TABLE `department` (
   `department_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门身份标识ID',
   `department_name` varchar(255) DEFAULT NULL COMMENT '部门名称',
   PRIMARY KEY (`department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `department`
+-- ----------------------------
+BEGIN;
+INSERT INTO `department` VALUES ('1', 'java');
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 /*Table structure for table `dictionary_table` */
 
@@ -45,7 +55,7 @@ CREATE TABLE `dictionary_table` (
   `dictionary_table_platform` bigint(20) DEFAULT NULL COMMENT '字典所属平台',
   `dictionary_table_rank` int(11) DEFAULT NULL COMMENT '1系统级主错误编码 2业务级公共错误编码 3业务级错误编码',
   PRIMARY KEY (`dictionary_table_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `global_classify` */
 
@@ -57,7 +67,7 @@ CREATE TABLE `global_classify` (
   `global_classify_status` int(11) DEFAULT NULL COMMENT '是否启用',
   `global_classify_create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`global_classify_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `global_variable_field` */
 
@@ -72,7 +82,7 @@ CREATE TABLE `global_variable_field` (
   `global_classify_id` bigint(20) DEFAULT NULL COMMENT '集合标志id',
   `global_request_result_type` int(11) DEFAULT NULL COMMENT '请求响应类型1请求 2响应',
   PRIMARY KEY (`global_variable_field_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `interface_info` */
 
@@ -97,7 +107,7 @@ CREATE TABLE `interface_info` (
   `department_id` bigint(20) DEFAULT NULL COMMENT '接口所属部门0全部 1java 2APP 3web',
   `global_classify_id` bigint(20) DEFAULT NULL COMMENT '全局变量集合标识',
   PRIMARY KEY (`interface_info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=291 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `interface_request_field` */
 
@@ -111,7 +121,7 @@ CREATE TABLE `interface_request_field` (
   `interface_info_id` bigint(20) DEFAULT NULL COMMENT '接口信息表ID',
   `field_must` int(255) DEFAULT NULL COMMENT '字段是否必须',
   PRIMARY KEY (`interface_request_field_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1184 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `interface_response_field` */
 
@@ -125,7 +135,7 @@ CREATE TABLE `interface_response_field` (
   `interface_info_id` bigint(20) DEFAULT NULL COMMENT '接口信息表ID',
   `field_must` int(255) DEFAULT NULL COMMENT '接口是否必须',
   PRIMARY KEY (`interface_response_field_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2645 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `permission` */
 
@@ -137,7 +147,7 @@ CREATE TABLE `permission` (
   `permission_sign` varchar(128) DEFAULT NULL COMMENT '权限标识,程序中判断使用,如"user:create"',
   `description` varchar(256) DEFAULT NULL COMMENT '权限描述,UI界面显示使用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='权限表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='权限表';
 
 /*Table structure for table `platform_doc` */
 
@@ -149,7 +159,7 @@ CREATE TABLE `platform_doc` (
   `platform_create_time` datetime DEFAULT NULL COMMENT '平台创建时间',
   `company_name` varchar(255) DEFAULT NULL COMMENT '所属公司名称',
   PRIMARY KEY (`platform_doc_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `platform_doc_module_classify` */
 
@@ -160,7 +170,7 @@ CREATE TABLE `platform_doc_module_classify` (
   `module_name` varchar(255) DEFAULT NULL COMMENT '模块名称',
   `platform_doc_id` bigint(20) DEFAULT NULL COMMENT '平台文档分类名称',
   PRIMARY KEY (`platform_doc_module_classify_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1056 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `role` */
 
@@ -172,7 +182,7 @@ CREATE TABLE `role` (
   `role_sign` varchar(128) DEFAULT NULL COMMENT '角色标识,程序中判断使用,如"admin"',
   `description` varchar(256) DEFAULT NULL COMMENT '角色描述,UI界面显示使用',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色表';
 
 /*Table structure for table `role_permission` */
 
@@ -183,7 +193,7 @@ CREATE TABLE `role_permission` (
   `role_id` bigint(20) unsigned DEFAULT NULL COMMENT '角色id',
   `permission_id` bigint(20) unsigned DEFAULT NULL COMMENT '权限id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色与权限关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='角色与权限关联表';
 
 /*Table structure for table `user` */
 
@@ -196,7 +206,7 @@ CREATE TABLE `user` (
   `status` bigint(32) DEFAULT NULL COMMENT '状态',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户表';
 
 /*Table structure for table `user_department` */
 
@@ -207,7 +217,7 @@ CREATE TABLE `user_department` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `department_id` bigint(20) DEFAULT NULL COMMENT '部门id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Table structure for table `user_role` */
 
@@ -218,7 +228,7 @@ CREATE TABLE `user_role` (
   `user_id` bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
   `role_id` bigint(20) unsigned DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户与角色关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='用户与角色关联表';
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
