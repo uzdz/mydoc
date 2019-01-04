@@ -31,7 +31,22 @@ name：uzdz </br>
 Email：devmen@163.com <br/>
 QQ：714973366
 
+# 数据库表结构导入
+
+> 请将resources目录的myDoc.sql文件导入至MySQL数据库即可。
+
 # 系统功能UI图
 
-!(图一)[https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/1.png]
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/1.png)
 
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/2.png)
+
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/3.png)
+
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/4.png)
+
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/5.png)
+
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/6.png)
+
+![image](https://raw.githubusercontent.com/uzdz/mydoc/master/src/main/webapp/WEB-INF/images/7.png)
