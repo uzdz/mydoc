@@ -46,11 +46,11 @@ docker run -p 3306:3306 --name mysqlDate -e MYSQL_ROOT_PASSWORD=123456 -d mysql:
 > 注意：mydoc镜像中不包含mysql数据库，所以需要依赖外部数据库。通过--link命令传入一个alias的mysql别名。其中别名名称必须为mysql_server。
 
 ```shell script
-docker pull uzdz/mydoc
+docker pull uzdz/mydoc:v2
 ```
 
 ```shell script
-docker run --name mydoc --link mysqlDate:mysql_server -p 8080:8080 uzdz/mydoc
+docker run --name mydoc --link mysqlDate:mysql_server -p 8080:8080 uzdz/mydoc:v2
 ```
 
 #### 访问网页
@@ -77,11 +77,11 @@ mvn install -Dmaven.test.skip=true
 #### 构建镜像
 
 ```shell script
-docker build --no-cache -t uzdz/mydoc:v1 .
+docker build --no-cache -t uzdz/mydoc:x .
 ```
 
 #### 运行镜像创建容器
 
 ```shell script
-docker run --name mydoc --link mysqlDate:mysql_server -p 8080:8080 uzdz/mydoc
+docker run --name mydoc --link mysqlDate:mysql_server -p 8080:8080 uzdz/mydoc:x
 ```
